@@ -9,8 +9,8 @@ def load_wers(file):
     d = {}
     for row in reader:
        k, v = row
-       #print k,v
-       d[v] = k
+       print k
+       d[k.strip()] = v
     return d
 
 
@@ -72,8 +72,10 @@ def match_wers(codestr,dict):
     fd = initial_featuredict()
     fc = initial_featurecount()
     for item in str(codestr).split():
+        print item
         for k,v in dict.items():
-            if item.startswith(k):
+            if item==k:
+            #if item.startswith(k):
                 print item,k,v
                 if len(fd[int(v)])==0:
                     fd[int(v)]=item
@@ -86,7 +88,7 @@ def match_wers(codestr,dict):
 
 
 if __name__ == '__main__':
-    wers_dict = load_wers('/home/shiyu/ford/wers.csv')
+    wers_dict = load_wers('/home/shiyu/ford/full_dict.csv')
     out1 = '/home/shiyu/ford/out1.csv'
     out2 = '/home/shiyu/ford/out2.csv'
     parse_chunked_code('/home/shiyu/ford/output.txt', wers_dict, out1,out2)
